@@ -26,4 +26,8 @@ public class MDCService {
     public void setMDC(Map<String,String> contextMap) {
         ThreadContext.putAll(contextMap);
     }
+
+    public String fetch(String key){
+        return ThreadContext.get(key);
+    }
 }
