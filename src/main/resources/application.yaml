@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: MdcSpringIntegrationDemo
+
+logging:
+  config: classpath:log4j2.xml
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.springframework.context: INFO
+    org.springframework.integration: DEBUG
+
+
+mdcspringintegration:
+  mdc_header: "SOMEID"
