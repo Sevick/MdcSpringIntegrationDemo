@@ -36,8 +36,8 @@ public class IntegrationConfiguration {
     @Autowired
     private Service2 service2;
 
-    @Bean
-    public MessageChannel queueChannel_Q() {
+    @Bean(name = "queueChannel-Q")
+    public MessageChannel queueChannelQ() {
         return new QueueChannel();
     }
 
@@ -75,7 +75,7 @@ public class IntegrationConfiguration {
                 .transform(Pair.class, Map.Entry::getValue)
                 .filter((str -> !((String) str).isEmpty()))
                 .handle(service1, "process1")
-                .channel(queueChannel_Q())
+                .channel(queueChannelQ())
                 .handle(service2, "process2",
                         c -> c.poller(p -> p.fixedDelay(10000).taskExecutor(queuePollerTaskExecutor()))) // Poll every 10 sec
                 .handle(m -> logger.info("Result: {}", m.getPayload()))

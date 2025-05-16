@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 
 @Service
-@GlobalChannelInterceptor(patterns = {"*_Q"})
+@GlobalChannelInterceptor(patterns = {"*-Q"})
 public class MdcChannelInterceptor implements ChannelInterceptor {
     private static final Logger logger = LogManager.getLogger(MdcChannelInterceptor.class);
 
