@@ -36,7 +36,7 @@ public class MdcChannelInterceptor implements ChannelInterceptor {
                     .build();
         }
         if (channel instanceof PollableChannel) {
-            logger.trace("Cleaning the MDC context for PollableChannel");
+            logger.trace("Cleaning the MDC context before PollableChannel");
             mdcService.clearMDC();  // clear MDC in producer's thread
         }
         return message;
@@ -45,7 +45,7 @@ public class MdcChannelInterceptor implements ChannelInterceptor {
     @Override
     public Message<?> postReceive(Message<?> message, MessageChannel channel) {
         if (channel instanceof PollableChannel) {
-            logger.trace("Setting MDC context for PollableChannel");
+            logger.trace("Restore MDC context after PollableChannel");
             Map<String, String> mdcMap = message.getHeaders().entrySet().stream()
                     .filter(entry -> entry.getKey().equals(mdcHeader))
                     .collect(Collectors.toMap(Map.Entry::getKey, entry -> (String) entry.getValue()));
